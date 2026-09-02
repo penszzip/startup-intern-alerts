@@ -1,0 +1,245 @@
+{
+  "_comment": "Companies polled directly at their ATS for real-time alerts. Add more with: python atsresolve.py \"Company Name\"",
+  "companies": [
+    {
+      "name": "Cohere",
+      "ats": "ashby",
+      "slug": "cohere"
+    },
+    {
+      "name": "Wealthsimple",
+      "ats": "ashby",
+      "slug": "wealthsimple"
+    },
+    {
+      "name": "1Password",
+      "ats": "ashby",
+      "slug": "1password"
+    },
+    {
+      "name": "Jobber",
+      "ats": "ashby",
+      "slug": "jobber"
+    },
+    {
+      "name": "Float",
+      "ats": "ashby",
+      "slug": "float"
+    },
+    {
+      "name": "Neo Financial",
+      "ats": "ashby",
+      "slug": "neofinancial"
+    },
+    {
+      "name": "Miovision",
+      "ats": "ashby",
+      "slug": "miovision"
+    },
+    {
+      "name": "Hopper",
+      "ats": "ashby",
+      "slug": "hopper"
+    },
+    {
+      "name": "Waabi",
+      "ats": "lever",
+      "slug": "waabi"
+    },
+    {
+      "name": "Faire",
+      "ats": "greenhouse",
+      "slug": "faire"
+    },
+    {
+      "name": "D2L",
+      "ats": "greenhouse",
+      "slug": "d2l"
+    },
+    {
+      "name": "Block",
+      "ats": "greenhouse",
+      "slug": "block"
+    },
+    {
+      "name": "Pinterest",
+      "ats": "greenhouse",
+      "slug": "pinterest"
+    },
+    {
+      "name": "Robinhood",
+      "ats": "greenhouse",
+      "slug": "robinhood"
+    },
+    {
+      "name": "Lyft",
+      "ats": "greenhouse",
+      "slug": "lyft"
+    },
+    {
+      "name": "Coinbase",
+      "ats": "greenhouse",
+      "slug": "coinbase"
+    },
+    {
+      "name": "DoorDash US",
+      "ats": "greenhouse",
+      "slug": "doordashusa"
+    },
+    {
+      "name": "DoorDash Canada",
+      "ats": "greenhouse",
+      "slug": "doordashcanada"
+    },
+    {
+      "name": "MongoDB",
+      "ats": "greenhouse",
+      "slug": "mongodb"
+    },
+    {
+      "name": "OpenTable",
+      "ats": "greenhouse",
+      "slug": "opentable"
+    },
+    {
+      "name": "Databricks",
+      "ats": "greenhouse",
+      "slug": "databricks"
+    },
+    {
+      "name": "Dialpad",
+      "ats": "greenhouse",
+      "slug": "dialpad"
+    },
+    {
+      "name": "Spotify",
+      "ats": "lever",
+      "slug": "spotify"
+    },
+    {
+      "name": "Stripe",
+      "ats": "greenhouse",
+      "slug": "stripe"
+    },
+    {
+      "name": "Twilio",
+      "ats": "greenhouse",
+      "slug": "twilio"
+    },
+    {
+      "name": "Later",
+      "ats": "greenhouse",
+      "slug": "later"
+    },
+    {
+      "name": "Samsara",
+      "ats": "greenhouse",
+      "slug": "samsara"
+    },
+    {
+      "name": "Tenstorrent",
+      "ats": "greenhouse",
+      "slug": "tenstorrent"
+    },
+    {
+      "name": "Affirm",
+      "ats": "greenhouse",
+      "slug": "affirm"
+    },
+    {
+      "name": "Instacart",
+      "ats": "greenhouse",
+      "slug": "instacart"
+    },
+    {
+      "name": "Brex",
+      "ats": "greenhouse",
+      "slug": "brex"
+    },
+    {
+      "name": "Ramp",
+      "ats": "ashby",
+      "slug": "ramp"
+    },
+    {
+      "name": "Airbnb",
+      "ats": "greenhouse",
+      "slug": "airbnb"
+    },
+    {
+      "name": "Jane App",
+      "ats": "ashby",
+      "slug": "jane"
+    },
+    {
+      "name": "Asana",
+      "ats": "greenhouse",
+      "slug": "asana"
+    },
+    {
+      "name": "AlayaCare",
+      "ats": "greenhouse",
+      "slug": "alayacare"
+    },
+    {
+      "name": "Trulioo",
+      "ats": "ashby",
+      "slug": "trulioo"
+    },
+    {
+      "name": "Hootsuite",
+      "ats": "greenhouse",
+      "slug": "hootsuite"
+    },
+    {
+      "name": "Reddit",
+      "ats": "greenhouse",
+      "slug": "reddit"
+    },
+    {
+      "name": "Anthropic",
+      "ats": "greenhouse",
+      "slug": "anthropic"
+    },
+    {
+      "name": "Snowflake",
+      "ats": "ashby",
+      "slug": "snowflake"
+    },
+    {
+      "name": "Sentry",
+      "ats": "ashby",
+      "slug": "sentry"
+    },
+    {
+      "name": "Cloudflare",
+      "ats": "greenhouse",
+      "slug": "cloudflare"
+    },
+    {
+      "name": "Verkada",
+      "ats": "greenhouse",
+      "slug": "verkada"
+    },
+    {
+      "name": "Notion",
+      "ats": "ashby",
+      "slug": "notion"
+    },
+    {
+      "name": "Nuro",
+      "ats": "greenhouse",
+      "slug": "nuro"
+    },
+    {
+      "name": "Figma",
+      "ats": "greenhouse",
+      "slug": "figma"
+    },
+    {
+      "name": "Datadog",
+      "ats": "greenhouse",
+      "slug": "datadog"
+    }
+  ]
+}

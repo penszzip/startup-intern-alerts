@@ -1,0 +1,22 @@
+{
+  "priority_countries": [
+    "CA"
+  ],
+  "countries": [
+    "US"
+  ],
+  "include_remote_anywhere": true,
+  "lookback_days": 14,
+  "max_per_email": 25,
+  "state_retention_days": 60,
+  "email": {
+    "to": "",
+    "from": "",
+    "smtp_host": "smtp.gmail.com",
+    "smtp_port": 465
+  },
+  "env_vars": {
+    "gmail_app_password": "STARTUP_JOBS_GMAIL_APP_PASSWORD",
+    "startup_jobs_api_key": "STARTUP_JOBS_API_KEY"
+  }
+}

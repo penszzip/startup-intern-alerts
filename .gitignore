@@ -1,0 +1,9 @@
+# Never commit: password + email address live here
+secrets.json
+
+*.log
+*.log.1
+__pycache__/
+
+# NOTE: state.json and ats_state.json are intentionally NOT ignored.
+# GitHub Actions commits them back so "already alerted" survives between runs.
