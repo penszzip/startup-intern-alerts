@@ -9,6 +9,8 @@ Two watchers: a broad sweep of [startup.jobs](https://startup.jobs) via its MCP 
 
 Pure Python stdlib — no `pip install`, and it runs without Claude.
 
+**Running 24/7:** the Windows tasks only fire while this machine is awake. See [DEPLOY.md](DEPLOY.md) to run it free on GitHub Actions instead.
+
 ## One remaining setup step
 
 The poller sends mail through Gmail SMTP, which needs a 16-character **App Password**
