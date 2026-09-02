@@ -24,6 +24,9 @@ STATE = HERE / "state.json"
 SECRETS = HERE / "secrets.json"
 LOG = HERE / "poller.log"
 
+# dt.UTC is 3.11+; this keeps the code working on Ubuntu 22.04's Python 3.10.
+UTC = dt.timezone.utc
+
 # Each pass is one search_jobs query; results are merged and de-duplicated by id.
 # role=engineering is the broad spine; the keyword passes catch listings the
 # taxonomy tags differently, plus co-op phrasing, which dominates in Canada.
@@ -183,18 +186,36 @@ def send_email(cfg, subject, text, html_body, logger=None):
     msg.set_content(text)
     msg.add_alternative(html_body, subtype="html")
 
-    try:
-        ctx = ssl.create_default_context()
-        with smtplib.SMTP_SSL(ec["smtp_host"], ec["smtp_port"], context=ctx, timeout=30) as srv:
-            srv.login(ec["from"], password)
-            srv.send_message(msg)
-        log_fn(f"Emailed {ec['to']}: {subject}")
-        return True
-    except smtplib.SMTPAuthenticationError:
-        log_fn("ERROR: Gmail rejected the login. Use a 16-char App Password, "
-               "not your normal account password.")
-    except (smtplib.SMTPException, OSError) as exc:
-        log_fn(f"ERROR: send failed: {exc}")
+    # Some hosts (notably Oracle Cloud) filter outbound mail ports. 465 implicit TLS
+    # is the primary; 587 STARTTLS is tried if the first is unreachable, so a blocked
+    # port degrades to a retry rather than a silent nightly failure.
+    ctx = ssl.create_default_context()
+    attempts = [("ssl", int(ec.get("smtp_port", 465)))]
+    fallback = int(ec.get("smtp_fallback_port", 587))
+    if fallback and fallback != attempts[0][1]:
+        attempts.append(("starttls", fallback))
+
+    for mode, port in attempts:
+        try:
+            if mode == "ssl":
+                srv = smtplib.SMTP_SSL(ec["smtp_host"], port, context=ctx, timeout=30)
+            else:
+                srv = smtplib.SMTP(ec["smtp_host"], port, timeout=30)
+            with srv:
+                if mode == "starttls":
+                    srv.starttls(context=ctx)
+                srv.login(ec["from"], password)
+                srv.send_message(msg)
+            log_fn(f"Emailed {ec['to']}: {subject}" + (f" (via {port})" if port != 465 else ""))
+            return True
+        except smtplib.SMTPAuthenticationError:
+            # Bad credentials will fail identically on the other port - stop here.
+            log_fn("ERROR: Gmail rejected the login. Use a 16-char App Password, "
+                   "not your normal account password.")
+            return False
+        except (smtplib.SMTPException, OSError) as exc:
+            log_fn(f"WARN: send via port {port} failed: {exc}")
+    log_fn("ERROR: all SMTP ports failed; digest not sent.")
     return False
 
 
@@ -216,7 +237,7 @@ def main():
     api_key = get_secret(cfg, "startup_jobs_api_key")
 
     lookback = cfg.get("lookback_days", 14)
-    since = (dt.datetime.now(dt.UTC) - dt.timedelta(days=lookback)).strftime("%Y-%m-%d")
+    since = (dt.datetime.now(UTC) - dt.timedelta(days=lookback)).strftime("%Y-%m-%d")
 
     log(f"Polling startup.jobs (since {since}; {len(seen)} ids already seen)")
     raw = fetch(api_key, since)
@@ -234,7 +255,7 @@ def main():
     fresh = [j for j in matched if str(j["id"]) not in seen]
     log(f"{len(fresh)} are new since the last run")
 
-    now = dt.datetime.now(dt.UTC).isoformat(timespec="seconds")
+    now = dt.datetime.now(UTC).isoformat(timespec="seconds")
     sent = False
 
     if args.seed:
@@ -267,7 +288,7 @@ def main():
     if args.seed or sent or not fresh:
         for job in matched:
             seen.setdefault(str(job["id"]), now)
-        cutoff = dt.datetime.now(dt.UTC) - dt.timedelta(days=cfg.get("state_retention_days", 60))
+        cutoff = dt.datetime.now(UTC) - dt.timedelta(days=cfg.get("state_retention_days", 60))
         seen = {k: v for k, v in seen.items() if dt.datetime.fromisoformat(v) >= cutoff}
         # Skip the write when only last_run would change. On a CI runner that
         # commits state back to git, an unconditional write means a commit every

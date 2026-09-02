@@ -9,7 +9,7 @@ Two watchers: a broad sweep of [startup.jobs](https://startup.jobs) via its MCP 
 
 Pure Python stdlib — no `pip install`, and it runs without Claude.
 
-**Running 24/7:** the Windows tasks only fire while this machine is awake. See [DEPLOY.md](DEPLOY.md) to run it free on GitHub Actions instead.
+**Running 24/7:** the Windows tasks only fire while this machine is awake. Run it on a server instead: [ORACLE.md](ORACLE.md) for an Oracle Cloud Always Free VM (exact 10-min timing), or [DEPLOY.md](DEPLOY.md) for GitHub Actions (no credit card, but schedules drift).
 
 ## One remaining setup step
 

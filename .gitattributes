@@ -1,0 +1,11 @@
+# Shell scripts and systemd units must be LF, or they fail on Linux with
+# cryptic errors (\r becomes part of the ExecStart path / shebang).
+*.sh            text eol=lf
+*.py            text eol=lf
+*.service       text eol=lf
+*.timer         text eol=lf
+*.yml           text eol=lf
+*.json          text eol=lf
+*.md            text eol=lf
+# Windows helpers stay CRLF.
+*.cmd           text eol=crlf

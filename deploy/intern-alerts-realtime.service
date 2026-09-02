@@ -1,0 +1,12 @@
+[Unit]
+Description=Real-time SWE intern watcher (company ATS boards)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/startup-intern-alerts
+Environment=PYTHONIOENCODING=utf-8
+ExecStart=/usr/bin/python3 atswatch.py
+TimeoutStartSec=600

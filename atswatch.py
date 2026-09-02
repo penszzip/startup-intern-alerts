@@ -31,6 +31,9 @@ WATCHLIST = HERE / "watchlist.json"
 STATE = HERE / "ats_state.json"
 LOG = HERE / "atswatch.log"
 
+# dt.UTC is 3.11+; this keeps the code working on Ubuntu 22.04's Python 3.10.
+UTC = dt.timezone.utc
+
 UA = {"User-Agent": "Mozilla/5.0 (startup-intern-alerts watcher)"}
 TIMEOUT = 15
 
@@ -78,7 +81,7 @@ def _iso(value) -> str:
     if value in (None, ""):
         return ""
     if isinstance(value, (int, float)):          # Lever: epoch milliseconds
-        return dt.datetime.fromtimestamp(value / 1000, dt.UTC).isoformat(timespec="seconds")
+        return dt.datetime.fromtimestamp(value / 1000, UTC).isoformat(timespec="seconds")
     return str(value)
 
 
@@ -270,7 +273,7 @@ def main() -> int:
     fresh = [j for j in found if j["id"] not in seen]
     log(f"{len(found)} matching postings across {len(wl)} boards; {len(fresh)} new")
 
-    now = dt.datetime.now(dt.UTC).isoformat(timespec="seconds")
+    now = dt.datetime.now(UTC).isoformat(timespec="seconds")
     sent = False
 
     if args.dry_run:

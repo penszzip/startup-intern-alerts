@@ -1,0 +1,14 @@
+[Unit]
+Description=Run the startup.jobs sweep every 30 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=30min
+# Catch up if the VM was rebooting when a run was due.
+Persistent=true
+# Avoid every deployment hitting the ATS APIs on the exact same tick.
+RandomizedDelaySec=45
+Unit=intern-alerts-sweep.service
+
+[Install]
+WantedBy=timers.target

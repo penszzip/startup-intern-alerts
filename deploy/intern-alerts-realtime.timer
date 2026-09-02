@@ -1,0 +1,14 @@
+[Unit]
+Description=Run the real-time intern watcher every 10 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=10min
+# Catch up if the VM was rebooting when a run was due.
+Persistent=true
+# Avoid every deployment hitting the ATS APIs on the exact same tick.
+RandomizedDelaySec=45
+Unit=intern-alerts-realtime.service
+
+[Install]
+WantedBy=timers.target

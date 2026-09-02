@@ -13,7 +13,8 @@
     "to": "",
     "from": "",
     "smtp_host": "smtp.gmail.com",
-    "smtp_port": 465
+    "smtp_port": 465,
+    "smtp_fallback_port": 587
   },
   "env_vars": {
     "gmail_app_password": "STARTUP_JOBS_GMAIL_APP_PASSWORD",
