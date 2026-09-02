@@ -286,6 +286,11 @@ def main():
     # Commit state only once the digest is safely delivered (or in seed mode),
     # so a mail failure never silently swallows a batch of listings.
     if args.seed or sent or not fresh:
+        # Snapshot BEFORE mutating: `seen` is the same object as state["seen"], so
+        # setdefault() below would also update the baseline and make the
+        # "did anything change?" test below always false - which silently stopped
+        # state from ever being saved, re-emailing the same listings every run.
+        before = dict(seen)
         for job in matched:
             seen.setdefault(str(job["id"]), now)
         cutoff = dt.datetime.now(UTC) - dt.timedelta(days=cfg.get("state_retention_days", 60))
@@ -293,7 +298,7 @@ def main():
         # Skip the write when only last_run would change. On a CI runner that
         # commits state back to git, an unconditional write means a commit every
         # run (144/day); this way the file changes only when there is real news.
-        if seen != state.get("seen", {}):
+        if seen != before:
             STATE.write_text(json.dumps({"seen": seen, "last_run": now}, indent=1),
                              encoding="utf-8")
             log(f"State saved ({len(seen)} ids retained)")
