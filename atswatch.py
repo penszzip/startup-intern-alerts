@@ -158,6 +158,13 @@ NON_TECH = re.compile(
     | finance | accounting | \btax\b | \baudit\b | treasury
     | legal | counsel | compliance | policy
     | recruit | talent | people \s* (ops|team) | \bhr\b | human \s* resources
+    # Roles that STAFF an internship programme rather than being one. Cohere's
+    # "Early Careers & Interns Specialist" is a recruiting job that INTERNISH
+    # matches on the word "Interns". Deliberately narrow - bare "early career"
+    # must still pass, since "Early Career Software Engineer" is a role we want.
+    | interns? \s* (specialist|coordinator|partner|programme?\s*manager)
+    | early \s* careers? \s* (specialist|coordinator|partner|programme?|manager|recruit)
+    | university \s* relations | campus \s* (recruit|program)
     | communications | \bcomms\b | content | brand | social \s* media | editorial
     | customer \s* (support|success|experience) | community
     | product \s* manage | program \s* manage | project \s* manage

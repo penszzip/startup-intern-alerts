@@ -42,6 +42,7 @@ INTERNISH = re.compile(
     | \b trainees? \b
     | \b apprentice (ship)? s? \b
     | \b new \s+ grad (uate)? s? \b
+    | \b early \s+ careers? \b
     """
 )
 
