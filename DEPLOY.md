@@ -1,5 +1,15 @@
 # Deploying for 24/7 alerts (free)
 
+> **This workflow is no longer in the repo.** The deployment moved to an Oracle
+> Cloud VM (see [ORACLE.md](ORACLE.md)), and leaving the workflow active caused two
+> problems: it alerted in parallel with the VM from its own state file, and once
+> `state.json` was gitignored it had nowhere to persist "already alerted", so every
+> run would re-report everything.
+>
+> To restore it: `git show 1d8fc90:.github/workflows/alerts.yml > .github/workflows/alerts.yml`,
+> and un-ignore the two state files so the workflow can commit them back. Run one
+> deployment or the other, never both.
+
 The Windows tasks only fire while your machine is awake. To get alerts around the
 clock, run it on GitHub Actions.
 

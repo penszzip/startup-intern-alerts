@@ -1,9 +1,12 @@
 # Never commit: password + email address live here
 secrets.json
 
+# Runtime state. Each deployment keeps its own; committing it caused pull
+# conflicts on the VM and would let one machine's state clobber another's.
+# (The GitHub Actions design needed these tracked; the Oracle VM does not.)
+state.json
+ats_state.json
+
 *.log
 *.log.1
 __pycache__/
-
-# NOTE: state.json and ats_state.json are intentionally NOT ignored.
-# GitHub Actions commits them back so "already alerted" survives between runs.
