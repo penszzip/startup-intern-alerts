@@ -28,10 +28,17 @@ BOARDS = {
 def slug_variants(name: str) -> list[str]:
     base = name.strip().lower()
     base = re.sub(r"\b(inc|ltd|llc|corp|technologies|technology|labs|co)\b\.?", "", base)
+    # Keep a dotted variant BEFORE stripping punctuation: Super.com's Ashby slug is
+    # literally "super.com", so squashing it to "supercom" finds nothing.
+    dotted = re.sub(r"[^a-z0-9.\s-]", "", base).strip()
+    dotted = re.sub(r"[\s-]+", "-", dotted)
+
     base = re.sub(r"[^a-z0-9\s-]", "", base).strip()
     squashed = re.sub(r"[\s-]+", "", base)
     hyphened = re.sub(r"[\s-]+", "-", base)
     out = [squashed, hyphened]
+    if "." in dotted:
+        out.append(dotted)
     if squashed.endswith("ai") and len(squashed) > 3:      # cohereai -> cohere
         out.append(squashed[:-2])
     return [s for i, s in enumerate(out) if s and s not in out[:i]]
